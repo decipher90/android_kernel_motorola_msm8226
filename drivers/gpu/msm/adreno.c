@@ -3368,8 +3368,6 @@ static unsigned int adreno_readtimestamp(struct kgsl_device *device,
 		break;
 	}
 
-	rmb();
-
 	return timestamp;
 }
 
