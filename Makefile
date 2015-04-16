@@ -251,7 +251,7 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 HOSTCC       = ccache gcc
 HOSTCXX      = ccache g++
 HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O3 -fno-tree-vectorize -fomit-frame-pointer
-HOSTCXXFLAGS = -O3 -fno-tree-vectorize
+HOSTCXXFLAGS = -O3 -fno-tree-vectorize -fgraphite
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
@@ -352,9 +352,11 @@ CHECK		= sparse
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
                   -Wbitwise -Wno-return-void $(CF)
-OPTIMIZATION_FLAGS = -mtune=cortex-a7 -mfpu=neon \
+OPTIMIZATION_FLAGS = -marm -mtune=cortex-a7 -mfpu=neon-vfpv4 \
                      -ffast-math -fsingle-precision-constant \
-                     -fgcse-lm -fgcse-sm -fsched-spec-load -fforce-addr
+                     -fgcse-lm -fgcse-sm -fsched-spec-load -fforce-addr \
+                     -fgraphite-identity -floop-parallelize-all -ftree-loop-linear \
+                     -floop-interchange -floop-strip-mine -floop-block
 CFLAGS_MODULE   = $(OPTIMIZATION_FLAGS)
 AFLAGS_MODULE   = $(OPTIMIZATION_FLAGS)
 LDFLAGS_MODULE  =
