@@ -253,7 +253,7 @@ extern void dump_stack(void) __cold;
 #ifdef CONFIG_PRINTK
 #define printk_ratelimited(fmt, ...)					\
 ({									\
-	static DEFINE_RATELIMIT_STATE(_rs,				\
+	 static DEFINE_RATELIMIT_STATE(_rs,				\
 				      DEFAULT_RATELIMIT_INTERVAL,	\
 				      DEFAULT_RATELIMIT_BURST);		\
 									\
