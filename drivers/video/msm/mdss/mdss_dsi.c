@@ -22,6 +22,7 @@
 #include <linux/err.h>
 #include <linux/uaccess.h>
 #include <linux/regulator/consumer.h>
+#include <linux/lcd_notify.h>
 
 #ifdef CONFIG_STATE_NOTIFIER
 #include <linux/state_notifier.h>
