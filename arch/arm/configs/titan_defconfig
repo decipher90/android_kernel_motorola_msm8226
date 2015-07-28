@@ -31,6 +31,7 @@ CONFIG_TCP_CONG_ILLINOIS=y
 CONFIG_DEFAULT_TCP_CONG="westwood"
 # Others :-
 CONFIG_FRANDOM=y
+CONFIG_FB_MSM_MDSS_KCAL_CTRL=y
 # decipher_K ends here.   ||
 #
 CONFIG_ARM=y
