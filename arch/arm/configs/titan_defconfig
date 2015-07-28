@@ -2,17 +2,18 @@
 # Automatically generated file; DO NOT EDIT.
 # Linux/arm 3.4.42 Kernel Configuration
 #
-+# decipher_K begins here -->
-+
-+# Sound Controls :-
+# decipher_K begins here -->
+
+# Sound Controls :-
 CONFIG_HPH_HIGH_PERF=y
-+# CPU Hotplugs :-
-+# CPU Freq/Govs :-
-+# IO Schedulers :-
-+# Advanced TCP Congestions :-
-+# Others :-
-+
-+# decipher_K ends here.   ||
+CONFIG_SOUND_CONTROL_HAX_3_GPL=y
+# CPU Hotplugs :-
+# CPU Freq/Govs :-
+# IO Schedulers :-
+# Advanced TCP Congestions :-
+# Others :-
+CONFIG_FRANDOM=y
+# decipher_K ends here.   ||
 #
 CONFIG_ARM=y
 CONFIG_ARM_HAS_SG_CHAIN=y
