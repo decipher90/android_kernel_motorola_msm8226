@@ -43,11 +43,11 @@
 #define MIN_FREQUENCY_DOWN_DIFFERENTIAL		(1)
 
 #ifdef CONFIG_ARCH_MSM8226
-#define DEF_POWER_SAVE_FREQUENCY		(300000)
+#define DEF_POWER_SAVE_FREQUENCY		(787200)
 #define DEF_TWO_PHASE_FREQUENCY			(1190400)
 #define DBS_INPUT_EVENT_MIN_FREQ		(1190400)
 #define DEF_FREQUENCY_OPTIMAL			(1190400)
-#define DEF_FREQ_DOWN_STEP			(550000)
+#define DEF_FREQ_DOWN_STEP			(300000)
 #define DEF_FREQ_DOWN_STEP_BARRIER		(1190400)
 #else
 #define DEF_POWER_SAVE_FREQUENCY		(384000)
@@ -165,7 +165,7 @@ static struct dbs_tuners {
 	.up_threshold_any_cpu_load = DEF_FREQUENCY_UP_THRESHOLD_ANY_CPU,
 	.ignore_nice = 0,
 	.powersave_bias = 0,
-	.optimal_freq_speed = 1728000,
+	.optimal_freq_speed = 1190400,
 	.shortcut = 0,
 	.io_is_busy = 0,
 	.power_save_freq = DEF_POWER_SAVE_FREQUENCY,
