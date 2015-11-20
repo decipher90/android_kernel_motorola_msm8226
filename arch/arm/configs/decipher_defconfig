@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm 3.4.109 Kernel Configuration
+# Linux/arm 3.4.110 Kernel Configuration
 #
 # decipher_kernel begins here -->
 #
@@ -58,6 +58,7 @@ CONFIG_KERNEL_MODE_NEON=y
 CONFIG_ADRENO_IDLER=y
 CONFIG_RWSEM_XCHGADD_ALGORITHM=y
 CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS=y
+CONFIG_FORCE_FAST_CHARGE=y
 #
 # decipher_kernel ends here -->
 #
