@@ -385,9 +385,7 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security -Wno-sizeof-pointer-memaccess \
- 		   -fno-delete-null-pointer-checks \
-                   -marm -mfpu=neon-vfpv4 \
-                   $(KERNEL_FLAGS)
+		   -fno-delete-null-pointer-checks
 KBUILD_CFLAGS += -w
 KBUILD_CFLAGS += -Wno-error=unused-but-set-variable
 KBUILD_AFLAGS_KERNEL :=
