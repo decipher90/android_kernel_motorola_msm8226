@@ -38,6 +38,7 @@ struct asmp_cpudata_t {
 };
 
 static struct delayed_work asmp_work;
+static struct work_struct suspend_work, resume_work;
 static struct workqueue_struct *asmp_workq;
 static DEFINE_PER_CPU(struct asmp_cpudata_t, asmp_cpudata);
 
@@ -129,7 +130,7 @@ static void __cpuinit asmp_work_fn(struct work_struct *work) {
 	queue_delayed_work(asmp_workq, &asmp_work, delay_jif);
 }
 
-static void asmp_power_suspend(struct power_suspend *h) {
+static void asmp_suspend(struct work_struct *work) {
 	unsigned int cpu;
 
 	/* unplug online cpu cores */
@@ -145,7 +146,7 @@ static void asmp_power_suspend(struct power_suspend *h) {
 	pr_info(ASMP_TAG"suspended\n");
 }
 
-static void __cpuinit asmp_power_resume(struct power_suspend *h) {
+static void __cpuinit asmp_resume(struct work_struct *work) {
 	unsigned int cpu;
 
 	/* hotplug offline cpu cores */
@@ -162,6 +163,16 @@ static void __cpuinit asmp_power_resume(struct power_suspend *h) {
 				msecs_to_jiffies(asmp_param.delay));
 
 	pr_info(ASMP_TAG"resumed\n");
+}
+
+static void asmp_power_suspend(struct power_suspend *handle)
+{
+	queue_work(system_power_efficient_wq, &suspend_work);
+}
+
+static void asmp_power_resume(struct power_suspend *handle)
+{
+	queue_work(system_power_efficient_wq, &resume_work);
 }
 
 static struct power_suspend __refdata asmp_power_suspend_handler = {
@@ -304,6 +315,9 @@ static int __init asmp_init(void) {
 	if (enabled)
 		queue_delayed_work(asmp_workq, &asmp_work,
 				   msecs_to_jiffies(ASMP_STARTDELAY));
+
+	INIT_WORK(&suspend_work, asmp_suspend);
+	INIT_WORK(&resume_work, asmp_resume);
 
 	register_power_suspend(&asmp_power_suspend_handler);
 
