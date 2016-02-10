@@ -243,6 +243,43 @@ static ssize_t headphone_gain_store(struct kobject *kobj,
 	return count;
 }
 
+static ssize_t headphone_pa_gain_show(struct kobject *kobj,
+		struct kobj_attribute *attr, char *buf)
+{
+	return sprintf(buf, "%u %u\n",
+		tapan_read(fauxsound_codec_ptr, TAPAN_A_RX_HPH_L_GAIN),
+		tapan_read(fauxsound_codec_ptr, TAPAN_A_RX_HPH_R_GAIN));
+}
+
+static ssize_t headphone_pa_gain_store(struct kobject *kobj,
+		struct kobj_attribute *attr, const char *buf, size_t count)
+{
+	unsigned int lval, rval, chksum;
+	unsigned int gain, status;
+	unsigned int out;
+
+	sscanf(buf, "%u %u %u", &lval, &rval, &chksum);
+
+	if (calc_checksum(lval, rval, chksum)) {
+	gain = tapan_read(fauxsound_codec_ptr, TAPAN_A_RX_HPH_L_GAIN);
+	out = (gain & 0xf0) | lval;
+	tapan_write(fauxsound_codec_ptr, TAPAN_A_RX_HPH_L_GAIN, out);
+
+	status = tapan_read(fauxsound_codec_ptr, TAPAN_A_RX_HPH_L_STATUS);
+	out = (status & 0x0f) | (lval << 4);
+	tapan_write(fauxsound_codec_ptr, TAPAN_A_RX_HPH_L_STATUS, out);
+
+	gain = tapan_read(fauxsound_codec_ptr, TAPAN_A_RX_HPH_R_GAIN);
+	out = (gain & 0xf0) | rval;
+	tapan_write(fauxsound_codec_ptr, TAPAN_A_RX_HPH_R_GAIN, out);
+
+	status = tapan_read(fauxsound_codec_ptr, TAPAN_A_RX_HPH_R_STATUS);
+	out = (status & 0x0f) | (rval << 4);
+	tapan_write(fauxsound_codec_ptr, TAPAN_A_RX_HPH_R_STATUS, out);
+	}
+	return count;
+}
+
 static unsigned int selected_reg = 0xdeadbeef;
 
 static ssize_t sound_reg_select_store(struct kobject *kobj,
@@ -349,6 +386,12 @@ static struct kobj_attribute headphone_gain_attribute =
 		headphone_gain_show,
 		headphone_gain_store);
 
+static struct kobj_attribute headphone_pa_gain_attribute =
+	__ATTR(gpl_headphone_pa_gain,
+		0666,
+		headphone_pa_gain_show,
+		headphone_pa_gain_store);
+
 static struct kobj_attribute sound_control_locked_attribute =
 	__ATTR(gpl_sound_control_locked,
 		0666,
@@ -371,6 +414,7 @@ static struct attribute *sound_control_attrs[] =
 		&mic_gain_attribute.attr,
 		&speaker_gain_attribute.attr,
 		&headphone_gain_attribute.attr,
+		&headphone_pa_gain_attribute.attr,
 		&sound_control_locked_attribute.attr,
 		&sound_reg_sel_attribute.attr,
 		&sound_reg_read_attribute.attr,
