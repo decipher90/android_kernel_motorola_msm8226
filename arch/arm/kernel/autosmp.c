@@ -28,7 +28,7 @@
 #include <linux/cpumask.h>
 #include <linux/hrtimer.h>
 
-#define DEBUG 0
+#define DEBUG 1
 
 #define ASMP_TAG "AutoSMP: "
 #define ASMP_STARTDELAY 20000
@@ -61,7 +61,7 @@ static struct asmp_param_struct {
 
 static unsigned delay0 = 1;
 static unsigned long delay_jif;
-static int enabled __read_mostly = 1;
+static int enabled __read_mostly = 0;
 
 static void __cpuinit asmp_work_fn(struct work_struct *work)
 {
