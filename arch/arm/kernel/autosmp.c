@@ -196,7 +196,7 @@ static int __cpuinit set_enabled (char const* val, struct kernel_param const* kp
 			if (!cpu_online(cpu))
 				cpu_up(cpu);
 		}
-		lcd_unregister_client(&notif);
+		state_unregister_client(&notif);
 		pr_info(ASMP_TAG"disabled\n");
 	}
 	return ret;
