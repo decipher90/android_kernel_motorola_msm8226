@@ -28,7 +28,7 @@
 #include <linux/cpumask.h>
 #include <linux/hrtimer.h>
 
-#define DEBUG 1
+#define DEBUG 0
 
 #define ASMP_TAG "AutoSMP: "
 #define ASMP_STARTDELAY 20000
