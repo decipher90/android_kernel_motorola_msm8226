@@ -157,11 +157,11 @@ static __ref void asmp_resume (struct work_struct* work) {
 }
 
 static void asmp_power_suspend (void) {
-	queue_work(system_power_efficient_wq, &suspend_work);
+	queue_work(system_wq, &suspend_work);
 }
 
 static void asmp_power_resume (void) {
-	queue_work(system_power_efficient_wq, &resume_work);
+	queue_work(system_wq, &resume_work);
 }
 
 static int state_notifier_callback (struct notifier_block* this, unsigned long event, void* data) {
