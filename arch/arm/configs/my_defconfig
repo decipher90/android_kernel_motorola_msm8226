@@ -5,7 +5,7 @@
 # decipher_kernel begins here -->
 #
 # Sound Controls :-
-CONFIG_HPH_HIGH_PERF=y
+CONFIG_HPH_HIGH_PERF=n
 CONFIG_SOUND_CONTROL_HAX_3_GPL=n
 # CPU Hotplugs :-
 CONFIG_BRICKED_HOTPLUG=y
